@@ -26,6 +26,11 @@ npm run lint     # eslint (flat config: eslint.config.mjs)
 
 No test runner is configured yet.
 
+## Skills
+
+Please use /frontend-design to design user interface
+
+
 ## Architecture
 
 - App Router under `app/`: `app/layout.tsx` (root layout, Geist fonts), `app/page.tsx` (home page). Path alias `@/*` → repo root (`tsconfig.json`).
