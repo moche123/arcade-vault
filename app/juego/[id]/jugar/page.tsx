@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { saveScore } from "@/lib/storage";
@@ -14,11 +14,12 @@ export default function GamePlayerPage({ params }: PageProps<"/juego/[id]/jugar"
 
   const [score, setScore] = useState(0);
   const [lives] = useState(3);
-  const [level, setLevel] = useState(1);
   const [paused, setPaused] = useState(false);
   const [over, setOver] = useState(false);
   const [name, setName] = useState(user ? user.name : "INVITADO");
   const [saved, setSaved] = useState(false);
+
+  const level = useMemo(() => Math.floor(score / 2500) + 1, [score]);
 
   useEffect(() => {
     if (over || paused) return;
@@ -26,16 +27,11 @@ export default function GamePlayerPage({ params }: PageProps<"/juego/[id]/jugar"
     return () => clearInterval(t);
   }, [over, paused]);
 
-  useEffect(() => {
-    if (score > 0 && score % 2500 < 100) setLevel((l) => l + 1);
-  }, [score]);
-
   if (!game) return null;
 
   const endGame = () => setOver(true);
   const restart = () => {
     setScore(0);
-    setLevel(1);
     setPaused(false);
     setOver(false);
     setSaved(false);

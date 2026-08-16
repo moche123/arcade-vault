@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Reference template snippets — not real modules, kept for porting reference only.
+    "references/**",
   ]),
 ]);
 

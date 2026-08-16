@@ -16,6 +16,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    // Must run post-mount, not during render: localStorage is unavailable
+    // during SSR and reading it synchronously would cause a hydration mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setUser(getUser());
   }, []);
 
